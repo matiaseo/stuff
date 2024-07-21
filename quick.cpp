@@ -104,7 +104,7 @@ int getRandom(int seed) {
 int main() {
   auto before = now();
   vector<int> numbers = {5,3,2,56,7,3,24,1,3,4,533,67,765,3,2,4,3,456,546,664,546,456,456,456,645,456,45,453,345,435,3,65,7,8,89,6,88,654,32,456,7,969,76,54,3,25,675,8};
-  for(int i = 0; i++ < 45511;) numbers.insert(numbers.end(), { i & 0x7f, i >> 3 & 0x3f, getRandom(i) });
+  for(int i = 0; i++ < 325511;) numbers.insert(numbers.end(), { i & 0x7f, i >> 3 & 0x3f, getRandom(i) });
   printf("\nnumbers=%lu\n", numbers.size());
   auto after = now();
   //for(const int & num : numbers) printf("%4d", num);

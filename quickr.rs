@@ -32,12 +32,13 @@ fn rSort(list:&mut Vec<i32>, start:usize, end:usize) {
   let mut lg = end;
   let pivot = list[start];
   {
-    let dupped:Vec<_> = list[start+1..end].iter().cloned().collect();
+    let dupped:Vec<_> = list[start+1..end].to_vec();
     for value in dupped.iter() {
       if *value < pivot {
-        list[{let pre=sm;sm+=1;pre}] = *value
+        list[sm] = *value;
+        sm+=1;
       } else {
-        list[{lg-=1;lg}] = *value
+        list[{lg-=1;lg}] = *value;
       }
     }
   }
@@ -103,22 +104,23 @@ fn main() {
   println!("firstSort={:?}", after.duration_since(before));
 
   before = std::time::Instant::now();
-  numbers.sort();
+  let mut sorted = numbers.to_vec();
+  sorted.sort();
   after = std::time::Instant::now();
   //for(const int & num : sorted) print!("%4d", num);
   println!("built-in={:?}", after.duration_since(before));
 
   for i in 0..numbers.len() {
-    if sortedFirst[i] != numbers[i] {
-      println!("sF={} != sB={}", sortedFirst[i], numbers[i]);
+    if sortedFirst[i] != sorted[i] {
+      println!("sF={} != sB={}", sortedFirst[i], sorted[i]);
       std::process::exit(1);
     }
     //print!("{} ", sortedBetter[i]);
   }
   println!("first ok");
   for i in 0..numbers.len() {
-    if numbers[i] != sortedBetter[i] {
-      println!("s={} != sB={}", numbers[i], sortedBetter[i]);
+    if sorted[i] != sortedBetter[i] {
+      println!("s={} != sB={}", sorted[i], sortedBetter[i]);
       std::process::exit(1);
     }
     //print!("{} ", sortedBetter[i]);
